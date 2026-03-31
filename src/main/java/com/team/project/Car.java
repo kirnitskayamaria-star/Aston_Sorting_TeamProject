@@ -1,3 +1,5 @@
+package com.team.project;
+
 public class Car{
     private String model;
     private int power;
