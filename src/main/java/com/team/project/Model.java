@@ -1,4 +1,4 @@
-package com.team.project
+package com.team.project;
 
 public class Model {
     Car car = new Car.CarBuilder("Toyota")
