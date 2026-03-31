@@ -1,3 +1,5 @@
+package com.team.project
+
 public class Model {
     Car car = new Car.CarBuilder("Toyota")
         .power(300).productionDate(1997).build();
