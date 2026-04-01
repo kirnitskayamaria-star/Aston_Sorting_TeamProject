@@ -34,6 +34,17 @@ public class Car{
             return new Car(this);
         }
     }
+
+    public String getModel(){
+        return model;
+    }
+    public int getPower(){
+        return power;
+    }
+    public int getProductionDate(){
+        return productionDate;
+    }
+
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(this.model + " ");

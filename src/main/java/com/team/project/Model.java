@@ -9,5 +9,8 @@ public class Model {
     public void print(){
         System.out.println(car.toString());
         System.out.println(car2.toString());
+
+        System.out.println(car.getProductionDate() + " " + car.getPower() + " " + car.getModel());
+        System.out.println(car2.getProductionDate() + " " + car2.getPower() + " " + car2.getModel());
     }
 }
