@@ -3,12 +3,12 @@ package com.team.project.model;
 public class Car {
     private final String model;
     private final int power;
-    private final int productionDate;
+    private final int year;
 
     private Car(CarBuilder builder) {
         this.model = builder.model;
         this.power = builder.power;
-        this.productionDate = builder.productionDate;
+        this.year = builder.year;
     }
 
     public static CarBuilder builder() {
@@ -23,21 +23,21 @@ public class Car {
         return power;
     }
 
-    public int getProductionDate() {
-        return productionDate;
+    public int getYear() {
+        return year;
     }
 
     public String toString() {
         String sb = this.model + " " +
                 this.power + " hp, " +
-                this.productionDate + " y.";
+                this.year + " y.";
         return sb;
     }
 
     public static class CarBuilder {
         private String model;
         private int power;
-        private int productionDate;
+        private int year;
 
         public CarBuilder model(String model) {
             this.model = model;
@@ -49,8 +49,8 @@ public class Car {
             return this;
         }
 
-        public CarBuilder productionDate(int productionDate) {
-            this.productionDate = productionDate;
+        public CarBuilder year(int year) {
+            this.year = year;
             return this;
         }
 
