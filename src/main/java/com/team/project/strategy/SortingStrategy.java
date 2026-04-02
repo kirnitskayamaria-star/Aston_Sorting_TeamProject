@@ -1,6 +1,8 @@
 package com.team.project.strategy;
 
-import model.Car;
+import com.team.project.model.Car;
+
+import java.util.List;
 
 public interface SortingStrategy {
     void sort(List<Car> cars);

@@ -1,6 +1,6 @@
 package com.team.project.strategy;
 
-import model.Car;
+import com.team.project.model.Car;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ public class EvenSortStrategy implements SortingStrategy{
 
     @Override
     public void sort(List<Car> cars) {
-        if (cars == null || cars.size() <= 1) {
+        if (cars == null || cars.size() == 1) {
             return;
         }
 
