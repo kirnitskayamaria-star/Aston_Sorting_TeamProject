@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface SearchService {
 
-    Integer countCars(List<Car> cars, Car car);
+    Integer countCars(List<Car> cars, Car targetCar);
 }
