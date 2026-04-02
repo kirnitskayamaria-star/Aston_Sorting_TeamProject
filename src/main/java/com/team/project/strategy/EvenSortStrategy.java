@@ -9,7 +9,7 @@ public class EvenSortStrategy implements SortingStrategy{
 
     @Override
     public void sort(List<Car> cars) {
-        if (cars == null || cars.size() == 1) {
+        if (cars == null || cars.size() <= 1) {
             return;
         }
 
