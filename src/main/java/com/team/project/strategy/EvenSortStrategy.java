@@ -8,16 +8,16 @@ import java.util.List;
 public class EvenSortStrategy implements SortingStrategy{
 
     @Override
-    public void sort(List<Car> cars) {
-        if (cars == null || cars.size() <= 1) {
+    public void sort(Car[] cars) {
+        if (cars == null || cars.length <= 1) {
             return;
         }
 
         List<Integer> evenIndices = new ArrayList<>();
         List<Car> evenCars = new ArrayList<>();
 
-        for (int i = 0; i < cars.size(); i++) {
-            Car car = cars.get(i);
+        for (int i = 0; i < cars.length; i++) {
+            Car car = cars[i];
             if (car.getPower() % 2 == 0) {
                 evenIndices.add(i);
                 evenCars.add(car);
@@ -27,7 +27,7 @@ public class EvenSortStrategy implements SortingStrategy{
         manualSortByPower(evenCars);
 
         for (int j = 0; j < evenIndices.size(); j++) {
-            cars.set(evenIndices.get(j), evenCars.get(j));
+            cars[evenIndices.get(j)] = evenCars.get(j);
         }
     }
 
