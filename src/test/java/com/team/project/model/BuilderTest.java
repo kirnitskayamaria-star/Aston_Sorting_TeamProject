@@ -1,6 +1,6 @@
 package com.team.project.model;
 
-public class Model {
+public class BuilderTest {
     Car car = Car.builder().model("Toyota")
             .power(400).year(1997).build();
 
