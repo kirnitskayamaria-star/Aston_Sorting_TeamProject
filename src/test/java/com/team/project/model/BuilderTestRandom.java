@@ -1,3 +1,5 @@
+package com.team.project.model;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BuilderTestRandom extends BuilderTestAbstract {
