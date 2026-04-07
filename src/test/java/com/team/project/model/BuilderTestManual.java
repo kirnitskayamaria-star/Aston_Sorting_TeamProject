@@ -1,3 +1,5 @@
+package com.team.project.model;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
