@@ -1,3 +1,5 @@
+package com.team.project.model;
+
 public abstract class BuilderTestAbstract {
     protected static final int minPower = 100;
     protected static final int maxPower = 2000;
