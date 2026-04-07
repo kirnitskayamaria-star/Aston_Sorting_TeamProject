@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface FillStrategy {
     List<Car> fill(int count);
+
 }
