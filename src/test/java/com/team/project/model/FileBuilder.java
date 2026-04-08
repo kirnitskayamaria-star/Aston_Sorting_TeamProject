@@ -3,7 +3,7 @@ package com.team.project.model;
 import java.util.Arrays;
 import java.util.List;
 
-class FileBuilder extends BuilderTestAbstract {
+public class FileBuilder extends BuilderTestAbstract {
     List<String> lines;
 
     public FileBuilder(String line) {
