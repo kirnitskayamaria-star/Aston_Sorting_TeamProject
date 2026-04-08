@@ -1,13 +1,11 @@
 package com.team.project.model;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import java.util.concurrent.ThreadLocalRandom;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 
-public class BuilderTestRandom extends BuilderTestAbstract {
+public class BuilderTestRandom extends BuilderTestAbstract{
     private int power;
     private int year;
     private String model;
@@ -17,7 +15,7 @@ public class BuilderTestRandom extends BuilderTestAbstract {
     public void input() {
         power = ThreadLocalRandom.current().nextInt(minPower, maxPower);
         assertTrue(power > minPower && power < maxPower);
-        year = ThreadLocalRandom.current().nextInt(minYear, maxYear + 1);
+        year = ThreadLocalRandom.current().nextInt(minYear, maxYear);
         assertTrue(year > minYear && year < maxYear + 1);
         int randomModelNumber = (int) (Math.random() * models.length);
         assertTrue(randomModelNumber >= 0 && randomModelNumber < models.length);

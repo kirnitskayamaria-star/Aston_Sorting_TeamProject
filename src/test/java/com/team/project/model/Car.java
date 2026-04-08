@@ -1,4 +1,4 @@
-//package com.team.project.model;
+package com.team.project.model;//package com.team.project.model;
 
 public class Car {
     private final String model;

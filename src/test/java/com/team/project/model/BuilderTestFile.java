@@ -1,6 +1,10 @@
 package com.team.project.model;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -20,7 +24,7 @@ public class BuilderTestFile extends BuilderTestAbstract {
     private static int power = 0;
     private static int year = 0;
     private static String model;
-    private final String name = "data.txt";
+    private final String name = "com/team/project/model/data.txt";
 
     public void getFileData() throws IOException {
         String dataPath = System.getProperty("user.dir") + "/src/test/java/" + name;
