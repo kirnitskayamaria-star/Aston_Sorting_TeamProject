@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 
 public class StreamDataService {
 
+
     public List<Car> fillWithStreams(int count) {
         return Stream.generate(CarGenerator::generateRandomCar)
                 .limit(count)
