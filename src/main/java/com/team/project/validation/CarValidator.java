@@ -7,10 +7,10 @@ public class CarValidator {
 
         Validator numberChain = new EmptyValidator();
         numberChain.setNext(new NumberValidator());
-
         boolean isModelOk = stringChain.validate(model);
         boolean isPowerOk = numberChain.validate(power);
         boolean isYearOk = numberChain.validate(year);
+
 
         return isModelOk && isPowerOk && isYearOk;
     }
