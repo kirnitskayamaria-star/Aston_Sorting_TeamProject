@@ -1,6 +1,6 @@
 package com.team.project.service;
 
-import com.team.project.Car;
+import com.team.project.model.Car;
 
 import java.util.List;
 

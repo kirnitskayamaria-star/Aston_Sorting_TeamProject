@@ -2,6 +2,7 @@ package com.team.project.controller;
 
 
 import com.team.project.service.impl.CarService;
+import com.team.project.strategy.CarSortingStrategies;
 
 import java.util.Scanner;
 
@@ -51,24 +52,38 @@ public class MenuController {
     private void sortMenu() {
         System.out.println("\n1. Model | 2. Power | 3. Year | 4. Custom");
         int choice = checkInt();
-        switch (choice) {
-            case 1 -> carService.sort(new CarSortingStrategies.SortByModel());
-            case 2 -> carService.sort(new CarSortingStrategies.SortByPower());
-            case 3 -> carService.sort(new CarSortingStrategies.SortByYear());
-            case 4 -> carService.sort(new EvenSortStrategy());
-            default -> System.out.println("Error: invalid choice");
+        try {
+            switch (choice) {
+                case 1 -> carService.sort(new CarSortingStrategies.SortByModel());
+                case 2 -> carService.sort(new CarSortingStrategies.SortByPower());
+                case 3 -> carService.sort(new CarSortingStrategies.SortByYear());
+                case 4 -> carService.sort(new EvenSortStrategy());
+                default -> System.out.println("Error: invalid choice");
+            }
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     private void writeFileMenu() {
         System.out.print("File name: ");
-        carService.save(scanner.nextLine());
+
+        try {
+            carService.save(scanner.nextLine());
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void searchMenu() {
         System.out.print("Model: ");
         String model = scanner.nextLine();
-        System.out.println("Found: " + carService.countModel(model));
+        try {
+            System.out.println("Found: " + carService.countModel(model));
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     private void mainMenu() {
