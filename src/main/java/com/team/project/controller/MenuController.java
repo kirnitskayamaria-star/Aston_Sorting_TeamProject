@@ -1,27 +1,24 @@
 package com.team.project.controller;
 
-import com.team.project.Car;
-import com.team.project.service.SearchService;
-import com.team.project.service.impl.SearchServiceImpl;
 
-import java.util.List;
+import com.team.project.service.impl.CarService;
+
 import java.util.Scanner;
 
 public class MenuController {
+    private final Scanner scanner;
+    private final CarService carService;
 
-    private final Scanner scanner = new Scanner(System.in);
-    private final SearchService searchService =  new SearchServiceImpl();
-    private final SortContext sortContext = new SortContext();
-    private FillStrategy fillStrategy;
-    private final DataHandler dataHandler = new DataHandler();
-    private List<Car> cars;
-
+    public MenuController(Scanner scanner, CarService carService) {
+        this.scanner = scanner;
+        this.carService = carService;
+    }
 
     public void start() {
-        int choice;
         while (true) {
             mainMenu();
-            choice = scanner.nextInt();
+            int choice = checkInt();
+
             switch (choice) {
                 case 1 -> fillMenu();
                 case 2 -> writeFileMenu();
@@ -32,113 +29,69 @@ public class MenuController {
                 }
                 default -> System.out.println("Error: invalid choice");
             }
-
         }
     }
 
-    private void mainMenu() {
-        System.out.println("\n=========Main menu==========");
-        System.out.println("1. Fill car list");
-        System.out.println("2. Write car list to file");
-        System.out.println("3. Sort car list");
-        System.out.println("4. Count the car in list");
-        System.out.println("0. Exit");
-        System.out.print("Choice: ");
+    private void fillMenu() {
+        System.out.println("\n1. File | 2. Random | 3. Manual");
+        int choice = checkInt();
+        System.out.print("Count: ");
+        int count = checkCount();
+
+        switch (choice) {
+            case 1 -> {
+                System.out.print("File name: ");
+                carService.fill(new FileFill(scanner.nextLine()), count);
+            }
+            case 2 -> carService.fill(new RandomFill(), count);
+            case 3 -> carService.fill(new ManualFill(scanner), count);
+        }
     }
 
-    private void fillMenu() {
-        System.out.println("\nChoose a way to fill the car list: ");
-        System.out.println("1. Read from file");
-        System.out.println("2. Random");
-        System.out.println("3. Manual");
-
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+    private void sortMenu() {
+        System.out.println("\n1. Model | 2. Power | 3. Year | 4. Custom");
+        int choice = checkInt();
         switch (choice) {
-            case 1 -> readFile();
-            case 2 -> readRandom();
-            case 3 -> readManual();
+            case 1 -> carService.sort(new CarSortingStrategies.SortByModel());
+            case 2 -> carService.sort(new CarSortingStrategies.SortByPower());
+            case 3 -> carService.sort(new CarSortingStrategies.SortByYear());
+            case 4 -> carService.sort(new EvenSortStrategy());
             default -> System.out.println("Error: invalid choice");
         }
     }
 
-    private void readFile() {
-        System.out.print("Input file name: ");
-        String fileName = scanner.nextLine();
-
-        System.out.print("Input car amount: ");
-        int countCars = scanner.nextInt();
-        scanner.nextLine();
-
-        fillStrategy = new FillFile(fileName);
-        cars = fillStrategy.fill(countCars);
-    }
-
-    private void readRandom() {
-        System.out.print("Input car amount: ");
-        int countCars = scanner.nextInt();
-        scanner.nextLine();
-
-        fillStrategy = new RandomFill();
-        cars = fillStrategy.fill(countCars);
-    }
-
     private void writeFileMenu() {
-        if (cars == null || cars.isEmpty()) {
-            System.out.println("Car list is empty");
-            return;
-        }
-        System.out.print("Input file name: ");
-        String fileName = scanner.nextLine();
-
-        dataHandler.save(fileName, cars);
-    }
-
-    private void readManual() {
-        System.out.print("Input car amount: ");
-        int countCars = scanner.nextInt();
-        scanner.nextLine();
-
-        fillStrategy = new ManualFill();
-        cars = fillStrategy.fill(countCars);
-    }
-
-    private void sortMenu() {
-        if (cars == null || cars.isEmpty()) {
-            System.out.println("List is empty");
-            return;
-        }
-
-        System.out.println("\nChoose a sort order:");
-        System.out.println("1. By model");
-        System.out.println("2. By power");
-        System.out.println("3. By year production");
-        System.out.println("4. Sort cars with even power");
-
-        int choice = scanner.nextInt();
-        scanner.nextLine();
-        switch (choice) {
-            case 1 -> sortContext.setStrategy(new CarSortingStrategies.SortByModel());
-            case 2 -> sortContext.setStrategy(new CarSortingStrategies.SortByPower());
-            case 3 -> sortContext.setStrategy(new CarSortingStrategies.SortByYear());
-            case 4 -> sortContext.setStrategy(new EvenSortStrategy());
-            default -> {
-                System.out.println("Error: invalid choice");
-                return;
-            }
-        }
-
-        try {
-            sortContext.sort(cars);
-        } catch (IllegalStateException e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.print("File name: ");
+        carService.save(scanner.nextLine());
     }
 
     private void searchMenu() {
-        System.out.print("Input car model: ");
+        System.out.print("Model: ");
         String model = scanner.nextLine();
-        System.out.println("Amount of cars: " + searchService.countCars(cars, model));
+        System.out.println("Found: " + carService.countModel(model));
     }
 
+    private void mainMenu() {
+        System.out.println("\n1. Fill | 2. Save | 3. Sort | 4. Count | 0. Exit");
+    }
+
+    private int checkInt() {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.print("Error: Please enter a valid number: ");
+            }
+        }
+    }
+
+    private int checkCount() {
+        while (true) {
+            int count = checkInt();
+            if (count > 0) {
+                return count;
+            }
+            System.out.print("Error: Please enter a positive integer: ");
+        }
+    }
 }
