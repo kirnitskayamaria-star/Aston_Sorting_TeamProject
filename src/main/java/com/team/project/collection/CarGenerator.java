@@ -1,5 +1,7 @@
 package com.team.project.collection;
+
 import com.team.project.model.Car;
+
 import java.util.Random;
 
 public class CarGenerator {
@@ -9,7 +11,7 @@ public class CarGenerator {
     private static final int MAX_YEAR_RANGE = 30;
     private static final int MIN_YEAR = 1996;
 
-    public static Car generateRandomCar(){
+    public static Car generateRandomCar() {
         CarModel[] models = CarModel.values();
         return new Car.CarBuilder()
                 .model(models[RANDOM.nextInt(models.length)].name())

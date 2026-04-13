@@ -5,7 +5,7 @@ import com.team.project.model.Car;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EvenSortStrategy implements SortingStrategy{
+public class EvenSortStrategy implements SortingStrategy {
 
     @Override
     public void sort(List<Car> cars) {
