@@ -23,8 +23,9 @@ class DataHandlerTest {
     void positiveSaveCarsToFile() throws IOException {
         DataHandler dataHandler = new DataHandler();
         Path filePath = tempDir.resolve("test_cars.txt");
-        List<Car> testCars = List.of(CarGenerator.generateRandomCar());
-        String expectedString = testCars.get(0).toString();
+        Car car = CarGenerator.generateRandomCar();
+        List<Car> testCars = List.of(car);
+        String expectedString = car.getModel() + "," + car.getPower() + "," + car.getYear();
         dataHandler.saveToFile(filePath.toString(), testCars);
         assertTrue(Files.exists(filePath), "Файл должен существовать");
         List<String> lines = Files.readAllLines(filePath);
