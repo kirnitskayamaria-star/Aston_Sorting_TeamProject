@@ -48,4 +48,13 @@ public class CarService {
     public boolean hasCars() {
         return cars != null && !cars.isEmpty();
     }
+
+    public void printList() {
+        if (cars == null || cars.isEmpty()) {
+            throw new IllegalStateException("Cannot print: list is empty");
+        }
+        for (Car car : cars) {
+            System.out.println(car);
+        }
+    }
 }
