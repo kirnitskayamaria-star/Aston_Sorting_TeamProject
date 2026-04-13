@@ -1,3 +1,9 @@
+package com.team.project.strategy;
+
+import com.team.project.model.Car;
+
+import java.util.List;
+
 public class SortContext {
     private SortingStrategy strategy;
 

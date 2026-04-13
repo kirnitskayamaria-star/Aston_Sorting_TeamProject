@@ -1,3 +1,7 @@
+package com.team.project.strategy;
+import com.team.project.model.Car;
+import com.team.project.strategy.SortingStrategy;
+
 import java.util.Comparator;
 import java.util.List;
 
@@ -32,12 +36,15 @@ public class CarSortingStrategies {
         int n = list.size();
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - 1 - i; j++) {
+                // Сравниваем j и j + 1
                 if (comparator.compare(list.get(j), list.get(j + 1)) > 0) {
-                    Car temp = list.get(i);
-                    list.set(i, list.get(i + 1));
-                    list.set(i + 1, temp);
+                    // МЕНЯЕМ МЕСТАМИ j и j + 1
+                    Car temp = list.get(j);
+                    list.set(j, list.get(j + 1));
+                    list.set(j + 1, temp);
                 }
             }
         }
     }
+
 }
