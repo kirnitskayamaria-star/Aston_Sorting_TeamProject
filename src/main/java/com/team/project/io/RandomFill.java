@@ -5,7 +5,7 @@ import com.team.project.model.Car;
 
 import java.util.List;
 
-public class RandomFill implements FillStrategy{
+public class RandomFill implements FillStrategy {
     private final StreamDataService streamService = new StreamDataService();
 
     @Override

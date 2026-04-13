@@ -26,9 +26,10 @@ public class MenuController {
 
             switch (choice) {
                 case 1 -> fillMenu();
-                case 2 -> writeFileMenu();
-                case 3 -> sortMenu();
-                case 4 -> searchMenu();
+                case 2 -> printList();
+                case 3 -> writeFileMenu();
+                case 4 -> sortMenu();
+                case 5 -> searchMenu();
                 case 0 -> {
                     return;
                 }
@@ -37,15 +38,22 @@ public class MenuController {
         }
     }
 
+    private void mainMenu() {
+        System.out.println("\nMAIN MENU\n1. Fill list\n2. Print list\n3. Save list to a file\n" +
+                "4. Sort list\n5. Count cars by model\n0. Exit");
+        System.out.print("Enter your choice: ");
+    }
+
     private void fillMenu() {
-        System.out.println("\n1. File | 2. Random | 3. Manual");
+        System.out.println("\n1. Read from file\n2. Random\n3. Manual");
+        System.out.print("Enter your choice: ");
         int choice = checkInt();
-        System.out.print("Count: ");
+        System.out.print("Enter amount of cars: ");
         int count = checkCount();
 
         switch (choice) {
             case 1 -> {
-                System.out.print("File name: ");
+                System.out.print("Enter file name: ");
                 carService.fill(new FileFill(scanner.nextLine()), count);
             }
             case 2 -> carService.fill(new RandomFill(), count);
@@ -53,8 +61,17 @@ public class MenuController {
         }
     }
 
+    private void printList() {
+        try {
+            carService.printList();
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private void sortMenu() {
-        System.out.println("\n1. Model | 2. Power | 3. Year | 4. Custom");
+        System.out.println("\nSort by:\n1. Model\n2. Power\n3. Year\n4. Custom");
+        System.out.println("Enter your choice: ");
         int choice = checkInt();
         try {
             switch (choice) {
@@ -62,7 +79,7 @@ public class MenuController {
                 case 2 -> carService.sort(new CarSortingStrategies.SortByPower());
                 case 3 -> carService.sort(new CarSortingStrategies.SortByYear());
                 case 4 -> carService.sort(new EvenSortStrategy());
-                default -> System.out.println("Error: invalid choice");
+                default -> System.out.print("Error: invalid choice");
             }
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -70,7 +87,7 @@ public class MenuController {
     }
 
     private void writeFileMenu() {
-        System.out.print("File name: ");
+        System.out.print("Enter file name: ");
 
         try {
             carService.save(scanner.nextLine());
@@ -80,7 +97,7 @@ public class MenuController {
     }
 
     private void searchMenu() {
-        System.out.print("Model: ");
+        System.out.print("Enter model: ");
         String model = scanner.nextLine();
         try {
             System.out.println("Found: " + carService.countModel(model));
@@ -90,16 +107,12 @@ public class MenuController {
 
     }
 
-    private void mainMenu() {
-        System.out.println("\n1. Fill | 2. Save | 3. Sort | 4. Count | 0. Exit");
-    }
-
     private int checkInt() {
         while (true) {
             try {
                 return Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.print("Error: Please enter a valid number: ");
+                System.out.print("Error: enter a valid number: ");
             }
         }
     }
@@ -110,7 +123,7 @@ public class MenuController {
             if (count > 0) {
                 return count;
             }
-            System.out.print("Error: Please enter a positive integer: ");
+            System.out.print("Error: enter a positive integer: ");
         }
     }
 }
