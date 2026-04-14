@@ -19,7 +19,7 @@ class DataHandlerTest {
     Path tempDir;
 
     @Test
-    @DisplayName("Успешная запись объекта Car в текстовый файл")
+    @DisplayName("Positive check: save Car object to a text file")
     void positiveSaveCarsToFile() throws IOException {
         DataHandler dataHandler = new DataHandler();
         Path filePath = tempDir.resolve("test_cars.txt");
@@ -27,10 +27,10 @@ class DataHandlerTest {
         List<Car> testCars = List.of(car);
         String expectedString = car.getModel() + "," + car.getPower() + "," + car.getYear();
         dataHandler.saveToFile(filePath.toString(), testCars);
-        assertTrue(Files.exists(filePath), "Файл должен существовать");
+        assertTrue(Files.exists(filePath), "The file should exist");
         List<String> lines = Files.readAllLines(filePath);
-        assertEquals(1, lines.size(), "В файле должна быть одна строка");
-        assertEquals(expectedString, lines.get(0), "Данные в файле не совпадают с toString машины");
+        assertEquals(1, lines.size(), "The file should contain one line");
+        assertEquals(expectedString, lines.get(0), "File content should match the format: model, power, year");
     }
 
 }

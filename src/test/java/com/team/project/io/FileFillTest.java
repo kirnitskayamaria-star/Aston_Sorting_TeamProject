@@ -12,7 +12,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class FileFillTest {
 
@@ -20,7 +20,7 @@ public class FileFillTest {
     Path tempDir;
 
     @Test
-    @DisplayName("Создание и сохранения 100 машин")
+    @DisplayName("Generate, load and save 100 cars")
     void testDataHandlerFullCycle() {
         DataHandler dataHandler = new DataHandler();
         Path filePath = tempDir.resolve("test_cars.txt");
@@ -34,16 +34,16 @@ public class FileFillTest {
         dataHandler.saveToFile(fileName, originalCars);
         FileFill reader = new FileFill(fileName);
         List<Car> loadedCars = reader.fill(100);
-        assertEquals(originalCars.size(), loadedCars.size(), "Количество не совпало!");
+        assertEquals(originalCars.size(), loadedCars.size(), "Car count mismatch");
         for (int i = 0; i < originalCars.size(); i++) {
             String expected = originalCars.get(i).toString();
             String actual = loadedCars.get(i).toString();
-            assertEquals(expected, actual, "Ошибка в данных на позиции " + i);
+            assertEquals(expected, actual, "Data mismatch at position " + i);
         }
     }
 
     @Test
-    @DisplayName("Пропуск некорректных строк: чтение только валидных данных")
+    @DisplayName("Negative check: skip invalid lines and read only valid data")
     void shouldSkipInvalidLines() throws IOException {
         Path filePath = tempDir.resolve("corrupted.txt");
         Files.write(filePath, List.of(
@@ -56,9 +56,22 @@ public class FileFillTest {
         FileFill reader = new FileFill(filePath.toString());
         List<Car> result = reader.fill(10);
 
-        assertEquals(1, result.size(), "Должна быть прочитана только 1 валидная машина");
+        assertEquals(1, result.size(), "Only one line should be read");
         assertEquals("ValidModel", result.get(0).getModel());
     }
 
+    @Test
+    @DisplayName("Negative check: return empty list when file does not exist")
+    void shouldReturnEmptyListWhenFileNotFound() {
+        String ghostPath = tempDir.resolve("non_existent.txt").toString();
+        FileFill reader = new FileFill(ghostPath);
+
+        List<Car> result = reader.fill(10);
+
+        assertAll(
+                () -> assertNotNull(result, "Method should return an empty list"),
+                () -> assertTrue(result.isEmpty(), "List should be empty when file is not found")
+        );
+    }
 
 }

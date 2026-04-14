@@ -1,5 +1,6 @@
 package com.team.project.collection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.team.project.model.Car;
@@ -12,7 +13,7 @@ public class StreamDataService {
 
     public List<Car> fillWithStreams(int count) {
         if (count <= 0) {
-            return new java.util.ArrayList<>();
+            return new ArrayList<>();
         }
         return Stream.generate(CarGenerator::generateRandomCar)
                 .limit(count)

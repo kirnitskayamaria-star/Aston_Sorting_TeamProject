@@ -11,7 +11,6 @@ public class CarValidator {
         boolean isPowerOk = numberChain.validate(power);
         boolean isYearOk = numberChain.validate(year);
 
-
         return isModelOk && isPowerOk && isYearOk;
     }
 }

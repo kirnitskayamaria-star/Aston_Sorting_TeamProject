@@ -10,23 +10,23 @@ class CarGeneratorTest {
 
 
     @RepeatedTest(100)
-    @DisplayName("Проверка генерации машины")
+    @DisplayName("Positive CarGenerator check")
     void positiveGenerateValidCar() {
         Car car = CarGenerator.generateRandomCar();
         assertTrue(car.getPower() >= 50 && car.getPower() < 350,
-                "Мощность вне диапазона [50, 350): " + car.getPower());
+                "Power is out of range [50, 350): " + car.getPower());
         assertTrue(car.getYear() >= 1996 && car.getYear() < 2026,
-                "Год вне диапазона [1996, 2026): " + car.getYear());
+                "Year is out of range [1996, 2026): " + car.getYear());
         assertNotNull(car);
     }
 
     @RepeatedTest(100)
-    @DisplayName("Негативные сценарии проверки генерации машины")
+    @DisplayName("Negative CarGenerator check")
     void negativeGenerateValidCar() {
         Car car = CarGenerator.generateRandomCar();
         assertFalse(car.getPower() < 50 || car.getPower() >= 350,
-                "Мощность вне диапазона " + car.getPower());
+                "Power is outside the allowed range " + car.getPower());
         assertFalse(car.getYear() < 1996 || car.getYear() >= 2026,
-                "Год вне диапазона " + car.getYear());
+                "Year is outside the allowed range  " + car.getYear());
     }
 }

@@ -7,26 +7,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CarValidatorTest {
     @Test
-    @DisplayName("Валидатор должен отклонять некорректные данные")
+    @DisplayName("Negative check: reject non-numeric and incorrect data")
     void validatorShouldReturnFalse() {
         boolean isValid = CarValidator.validateAll("Lada", "lada", "t");
-        assertFalse(isValid, "Данные 'lada' и 't' не должны считаться валидными");
+        assertFalse(isValid, "Alphabetic values like 'lada' and 't' should not be valid for numeric fields");
     }
 
     @Test
-    @DisplayName("Проверка валидатора с корректными значениями")
+    @DisplayName("Positive check: accept valid model and correct numeric data")
     void validatorShouldReturnTrueForValidData() {
         boolean isValid = CarValidator.validateAll("Toyota", "150", "2020");
-        assertTrue(isValid, "Валидные данные (Toyota, 150, 2020) должны быть приняты");
+        assertTrue(isValid, "Correct data (Toyota, 150, 2020) should be accepted");
     }
 
     @Test
-    @DisplayName("Проверка валидатора на пустые строки")
+    @DisplayName("Negative check: reject empty strings and blank fields")
     void validatorShouldReturnFalseForEmptyFields() {
         assertAll(
-                () -> assertFalse(CarValidator.validateAll("", "100", "2010"), "Пустая модель"),
-                () -> assertFalse(CarValidator.validateAll("BMW", "  ", "2010"), "Пробелы в мощности"),
-                () -> assertFalse(CarValidator.validateAll("Audi", "150", ""), "Пустой год")
+                () -> assertFalse(CarValidator.validateAll("", "100", "2010"), "Empty model"),
+                () -> assertFalse(CarValidator.validateAll("BMW", "  ", "2010"), "Blank power field"),
+                () -> assertFalse(CarValidator.validateAll("Audi", "150", ""), "Empty year")
         );
     }
 }
