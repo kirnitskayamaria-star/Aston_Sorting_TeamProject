@@ -81,6 +81,11 @@ public class CarServiceTest {
     }
 
     @Test
+    void shouldThrowException_WhenSavingEmptyList() {
+        assertThrows(IllegalStateException.class, () -> carService.save("test.txt"));
+    }
+
+    @Test
     void shouldReturnCount_WhenCountingModels() {
         List<Car> cars = List.of(mock(Car.class), mock(Car.class));
         String model = "BMW";
@@ -118,5 +123,22 @@ public class CarServiceTest {
         carService.fill(strategy, 0);
 
         assertFalse(carService.hasCars());
+    }
+
+    @Test
+    void shouldPrintList_WhenListIsNotEmpty() {
+        FillStrategy strategy = mock(FillStrategy.class);
+        Car car = mock(Car.class);
+        when(car.toString()).thenReturn("CarInfo");
+        when(strategy.fill(1)).thenReturn(List.of(car));
+
+        carService.fill(strategy, 1);
+
+        assertDoesNotThrow(() -> carService.printList());
+    }
+
+    @Test
+    void shouldThrowException_WhenPrintingEmptyList() {
+        assertThrows(IllegalStateException.class, () -> carService.printList());
     }
 }

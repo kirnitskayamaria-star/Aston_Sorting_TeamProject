@@ -62,6 +62,7 @@ public class MenuController {
     }
 
     private void printList() {
+        System.out.println();
         try {
             carService.printList();
         } catch (RuntimeException e) {
@@ -71,7 +72,7 @@ public class MenuController {
 
     private void sortMenu() {
         System.out.println("\nSort by:\n1. Model\n2. Power\n3. Year\n4. Custom");
-        System.out.println("Enter your choice: ");
+        System.out.print("Enter your choice: ");
         int choice = checkInt();
         try {
             switch (choice) {
